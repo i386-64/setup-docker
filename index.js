@@ -1,5 +1,5 @@
-import core from '@actions/core';
-import shell from 'shelljs';
+const core = require('@actions/core');
+const shell = require('shelljs');
 
 function run() {
   try {
@@ -19,4 +19,4 @@ function run() {
   }
 }
 
-run()
+run();
