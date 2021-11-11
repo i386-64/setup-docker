@@ -8910,46 +8910,6 @@ module.exports = require("util");
 /******/ 	}
 /******/ 	
 /************************************************************************/
-/******/ 	/* webpack/runtime/compat get default export */
-/******/ 	(() => {
-/******/ 		// getDefaultExport function for compatibility with non-harmony modules
-/******/ 		__nccwpck_require__.n = (module) => {
-/******/ 			var getter = module && module.__esModule ?
-/******/ 				() => (module['default']) :
-/******/ 				() => (module);
-/******/ 			__nccwpck_require__.d(getter, { a: getter });
-/******/ 			return getter;
-/******/ 		};
-/******/ 	})();
-/******/ 	
-/******/ 	/* webpack/runtime/define property getters */
-/******/ 	(() => {
-/******/ 		// define getter functions for harmony exports
-/******/ 		__nccwpck_require__.d = (exports, definition) => {
-/******/ 			for(var key in definition) {
-/******/ 				if(__nccwpck_require__.o(definition, key) && !__nccwpck_require__.o(exports, key)) {
-/******/ 					Object.defineProperty(exports, key, { enumerable: true, get: definition[key] });
-/******/ 				}
-/******/ 			}
-/******/ 		};
-/******/ 	})();
-/******/ 	
-/******/ 	/* webpack/runtime/hasOwnProperty shorthand */
-/******/ 	(() => {
-/******/ 		__nccwpck_require__.o = (obj, prop) => (Object.prototype.hasOwnProperty.call(obj, prop))
-/******/ 	})();
-/******/ 	
-/******/ 	/* webpack/runtime/make namespace object */
-/******/ 	(() => {
-/******/ 		// define __esModule on exports
-/******/ 		__nccwpck_require__.r = (exports) => {
-/******/ 			if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
-/******/ 				Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
-/******/ 			}
-/******/ 			Object.defineProperty(exports, '__esModule', { value: true });
-/******/ 		};
-/******/ 	})();
-/******/ 	
 /******/ 	/* webpack/runtime/node module decorator */
 /******/ 	(() => {
 /******/ 		__nccwpck_require__.nmd = (module) => {
@@ -8965,35 +8925,30 @@ module.exports = require("util");
 /******/ 	
 /************************************************************************/
 var __webpack_exports__ = {};
-// This entry need to be wrapped in an IIFE because it need to be in strict mode.
+// This entry need to be wrapped in an IIFE because it need to be isolated against other modules in the chunk.
 (() => {
-"use strict";
-__nccwpck_require__.r(__webpack_exports__);
-/* harmony import */ var _actions_core__WEBPACK_IMPORTED_MODULE_0__ = __nccwpck_require__(3876);
-/* harmony import */ var _actions_core__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__nccwpck_require__.n(_actions_core__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var shelljs__WEBPACK_IMPORTED_MODULE_1__ = __nccwpck_require__(1176);
-
-
+const core = __nccwpck_require__(3876);
+const shell = __nccwpck_require__(1176);
 
 function run() {
   try {
     // const version = core.getInput('version');
 
-    shelljs__WEBPACK_IMPORTED_MODULE_1__.exec('sudo apt-get remove -y docker docker-engine docker.io containerd runc');
-    shelljs__WEBPACK_IMPORTED_MODULE_1__.exec('sudo apt-get update');
-    shelljs__WEBPACK_IMPORTED_MODULE_1__.exec('sudo apt-get install -y ca-certificates curl gnupg lsb-release');
-    shelljs__WEBPACK_IMPORTED_MODULE_1__.exec('curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg');
-    shelljs__WEBPACK_IMPORTED_MODULE_1__.exec('echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null');
-    shelljs__WEBPACK_IMPORTED_MODULE_1__.exec('sudo apt-get update');
-    shelljs__WEBPACK_IMPORTED_MODULE_1__.exec('sudo apt-get install -y docker-ce docker-ce-cli containerd.io');
+    shell.exec('sudo apt-get remove -y docker docker-engine docker.io containerd runc');
+    shell.exec('sudo apt-get update');
+    shell.exec('sudo apt-get install -y ca-certificates curl gnupg lsb-release');
+    shell.exec('curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg');
+    shell.exec('echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null');
+    shell.exec('sudo apt-get update');
+    shell.exec('sudo apt-get install -y docker-ce docker-ce-cli containerd.io');
 
-    _actions_core__WEBPACK_IMPORTED_MODULE_0___default().setOutput('version', shelljs__WEBPACK_IMPORTED_MODULE_1__.exec('docker --version').stdout.matchAll('/Docker version ([0-9.]*)/g')[0]);
+    core.setOutput('version', shell.exec('docker --version').stdout.matchAll('/Docker version ([0-9.]*)/g')[0]);
   } catch (error) {
-    _actions_core__WEBPACK_IMPORTED_MODULE_0___default().setFailed(error.message);
+    core.setFailed(error.message);
   }
 }
 
-run()
+run();
 })();
 
 module.exports = __webpack_exports__;
