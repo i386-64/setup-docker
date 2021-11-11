@@ -1,0 +1,12 @@
+name: Setup Docker
+description: Updates the Docker installation
+inputs:
+  version:
+    description: The version of Docker to be installed.
+    required: false
+outputs:
+  version:
+    description: The version of Docker installed.
+runs:
+  using: 'node12'
+  main: 'index.js'
